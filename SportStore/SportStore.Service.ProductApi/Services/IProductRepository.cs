@@ -1,10 +1,4 @@
-﻿using SportStore.Service.ProductApi.Entities;
-using SportStore.Service.ProductApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SportStore.Service.ProductApi.Models;
 
 namespace SportStore.Service.ProductApi.Services
 {

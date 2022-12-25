@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportStore.Service.ProductApi.Models;
 using SportStore.Service.ProductApi.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportStore.Service.ProductApi.Controllers
 {
@@ -25,11 +20,12 @@ namespace SportStore.Service.ProductApi.Controllers
         }
 
         /// <summary>
-        /// Get products
+        /// Get list of products
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
             var products = await _productRepository.GetProducts();
@@ -37,10 +33,11 @@ namespace SportStore.Service.ProductApi.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get product by id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Id of product to get</param>
+        /// <returns>Product</returns>
+        /// <response code="200">Returns the requested products</response>
         [HttpGet("{id:length(24)}", Name = "GetProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -55,8 +52,13 @@ namespace SportStore.Service.ProductApi.Controllers
             }
             return Ok(product);
         }
- 
 
+        /// <summary>
+        /// Create product
+        /// </summary>
+        /// <param name="productDto">Product object</param>
+        /// <returns>Product</returns>
+        /// <response code="200">Returns the requested products</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductDto>> CreateProduct([FromBody] ProductDto productDto)
